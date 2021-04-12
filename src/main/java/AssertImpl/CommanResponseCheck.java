@@ -15,11 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import java.io.IOException;
 
 public class CommanResponseCheck implements ResponseCheck {
-    final int responseCodeColumn = 9;
-    final int errorCodeColumn = 10;
-    final int errorMsgColumn = 11;
-    final int dataColumn = 12;
-    final int conclusionColumn = 13;
+
     public static Log log = LogFactory.getLog(CommanResponseCheck.class.getName());
     private volatile static CommanResponseCheck instance;
 

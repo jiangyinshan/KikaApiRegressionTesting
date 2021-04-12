@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 public class CsvAction {
-    final String CsvFilePath = "/Users/xm20190901/Downloads/接口自动化.csv";
+    final String CsvFilePath = "src/main/resources/接口自动化.csv";
     final int responseCodeColumn = 9;
     final int errorCodeColumn = 10;
     final int errorMsgColumn = 11;

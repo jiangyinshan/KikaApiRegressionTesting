@@ -1,14 +1,11 @@
 package Util;
 
-import com.alibaba.fastjson.JSON;
 import okhttp3.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
