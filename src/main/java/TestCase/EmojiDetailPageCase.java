@@ -1,6 +1,8 @@
 package TestCase;
 
-import AssertImpl.CommanResponseCheck;
+import AssertImpl.CommanResponseCheckImpl;
+import AssertImpl.ParamExistCheckImpl;
+import AssertInterface.ParamExistCheck;
 import Util.GetParamsArray;
 import Util.LogUtil;
 import Util.RequestConstructer;
@@ -16,11 +18,12 @@ import java.io.IOException;
 /**
  * emoji详情页接口
  **/
-public class EmojiDetailPageCase implements GetParamsArray {
+public class EmojiDetailPageCase implements GetParamsArray, ParamExistCheck {
     public static Log log = LogFactory.getLog(PopupTagCase.class.getName());
     private String[] paramsArray;
     public int line;//参数在csv文件行数在csvList中的index
     private final String apiName = "emoji详情页接口";
+    private final String[] responseParamArray = {"preview", "pkg_name", "download_url","icon","name","description","id","priority","detail_icon","key","url"};
 
 
     @Test
@@ -29,7 +32,9 @@ public class EmojiDetailPageCase implements GetParamsArray {
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);
         OkHttpClient okHttpClient = new OkHttpClient();
         Response response = okHttpClient.newCall(request).execute();
-        CommanResponseCheck.getInstance().CheckResponseFormat(line, response);
+        String responseStr = response.body().string();
+        CommanResponseCheckImpl.getInstance().CheckResponseFormat(line, response, responseStr);
+        Check(line, responseStr, responseParamArray);
     }
 
     @Override
@@ -45,5 +50,11 @@ public class EmojiDetailPageCase implements GetParamsArray {
         if (this.paramsArray == null) {
             LogUtil.apiNotFound(this.apiName);
         }
+    }
+
+    @Override
+    public boolean Check(int line, String responseStr, String[] paramArray) {
+        ParamExistCheckImpl.getInstance().Check(line, responseStr, paramArray);
+        return false;
     }
 }

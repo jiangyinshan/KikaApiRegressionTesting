@@ -13,4 +13,10 @@ public class LogUtil {
     public static void apiNotFound(String apiName) {
         log.error("未找到该接口:" + apiName);
     }
+    public static void logInfo(String info) {
+        log.info(info);
+    }
+    public static void logError(String error) {
+        log.error(error);
+    }
 }

@@ -1,6 +1,8 @@
 package TestCase;
 
-import AssertImpl.CommanResponseCheck;
+import AssertImpl.CommanResponseCheckImpl;
+import AssertImpl.ResourceArrayCheckImpl;
+import AssertInterface.ResourceArrayCheck;
 import Util.GetParamsArray;
 import Util.LogUtil;
 import Util.RequestConstructer;
@@ -16,7 +18,7 @@ import java.io.IOException;
 /**
  * font tab页新接口
  **/
-public class FontListCase implements GetParamsArray {
+public class FontListCase implements GetParamsArray, ResourceArrayCheck {
     public static Log log = LogFactory.getLog(PopupTagCase.class.getName());
     private String[] paramsArray;
     public int line;//参数在csv文件行数在csvList中的index
@@ -29,7 +31,10 @@ public class FontListCase implements GetParamsArray {
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);
         OkHttpClient okHttpClient = new OkHttpClient();
         Response response = okHttpClient.newCall(request).execute();
-        CommanResponseCheck.getInstance().CheckResponseFormat(line, response);
+        String responseStr = response.body().string();
+        CommanResponseCheckImpl.getInstance().CheckResponseFormat(line, response, responseStr);
+        Check(line,responseStr,ResourceArrayCheckImpl.getInstance().font_list);
+
     }
 
     @Override
@@ -45,5 +50,11 @@ public class FontListCase implements GetParamsArray {
         if (this.paramsArray == null) {
             LogUtil.apiNotFound(this.apiName);
         }
+    }
+
+    @Override
+    public boolean Check(int line, String responseStr, String param) {
+        ResourceArrayCheckImpl.getInstance().Check(line,responseStr,param);
+        return false;
     }
 }

@@ -3,7 +3,6 @@ package AssertImpl;
 
 import AssertInterface.ResponseCheck;
 import ResponseBean.ResponseBean;
-import Util.RequestConstructer;
 import Util.CsvAction;
 
 import com.alibaba.fastjson.JSON;
@@ -14,16 +13,16 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 
-public class CommanResponseCheck implements ResponseCheck {
+public class CommanResponseCheckImpl implements ResponseCheck {
 
-    public static Log log = LogFactory.getLog(CommanResponseCheck.class.getName());
-    private volatile static CommanResponseCheck instance;
+    public static Log log = LogFactory.getLog(CommanResponseCheckImpl.class.getName());
+    private volatile static CommanResponseCheckImpl instance;
 
-    public static CommanResponseCheck getInstance() {
+    public static CommanResponseCheckImpl getInstance() {
         if (instance == null) {
-            synchronized (RequestConstructer.class) {
+            synchronized (CommanResponseCheckImpl.class) {
                 if (instance == null) {
-                    instance = new CommanResponseCheck();
+                    instance = new CommanResponseCheckImpl();
                 }
             }
         }
@@ -31,10 +30,9 @@ public class CommanResponseCheck implements ResponseCheck {
     }
 
     @Override
-    public boolean CheckResponseFormat(int line, Response response) throws IOException {
-        String s = response.body().string();
-        System.out.println(s);
-        ResponseBean responseBean = JSON.parseObject(s, ResponseBean.class);
+    public boolean CheckResponseFormat(int line, Response response, String responseBodyStr) throws IOException {
+        System.out.println(responseBodyStr);
+        ResponseBean responseBean = JSON.parseObject(responseBodyStr, ResponseBean.class);
         RecordContent(line, response.code(), responseBean.getErrorCode(), responseBean.getErrorMsg(), responseBean.getData());
         if (response.code() != 200 || responseBean.getErrorCode() != 0 || !responseBean.getErrorMsg().equals("ok")) {
             CsvAction.getInstance().RecordConclusion(line, false);

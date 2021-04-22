@@ -1,6 +1,8 @@
 package TestCase;
 
-import AssertImpl.CommanResponseCheck;
+import AssertImpl.CommanResponseCheckImpl;
+import AssertImpl.ParamExistCheckImpl;
+import AssertInterface.ParamExistCheck;
 import Util.GetParamsArray;
 import Util.LogUtil;
 import Util.RequestConstructer;
@@ -16,12 +18,12 @@ import java.io.IOException;
 /**
  * sticker tab页sticker列表接口
  **/
-public class StickerListCase implements GetParamsArray {
+public class StickerListCase implements GetParamsArray, ParamExistCheck {
     public static Log log = LogFactory.getLog(PopupTagCase.class.getName());
     private String[] paramsArray;
     public int line;//参数在csv文件行数在csvList中的index
     private final String apiName = "sticker列表接口";
-
+    private  final String[] responseParamArray={"resource","pageSize","pageNum"};
 
     @Test
     public void TestCase() throws IOException {
@@ -29,7 +31,9 @@ public class StickerListCase implements GetParamsArray {
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);
         OkHttpClient okHttpClient = new OkHttpClient();
         Response response = okHttpClient.newCall(request).execute();
-        CommanResponseCheck.getInstance().CheckResponseFormat(line, response);
+        String responseStr = response.body().string();
+        CommanResponseCheckImpl.getInstance().CheckResponseFormat(line, response, responseStr);
+        Check(line,responseStr,responseParamArray);
     }
 
     @Override
@@ -45,5 +49,11 @@ public class StickerListCase implements GetParamsArray {
         if (this.paramsArray == null) {
             LogUtil.apiNotFound(this.apiName);
         }
+    }
+
+    @Override
+    public boolean Check(int line, String responseStr, String[] paramArray) {
+        ParamExistCheckImpl.getInstance().Check(line,responseStr,paramArray);
+        return false;
     }
 }

@@ -12,18 +12,19 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 public class CsvAction {
-    final String CsvFilePath = "src/main/resources/接口自动化.csv";
+    final String CsvFilePath = "/Users/xm20190901/Downloads/接口自动化.csv";
     final int responseCodeColumn = 9;
     final int errorCodeColumn = 10;
     final int errorMsgColumn = 11;
     final int dataColumn = 12;
     final int conclusionColumn = 13;
+    final int logicConclusionColumn = 14;
     public static Log log = LogFactory.getLog(CsvAction.class.getName());
     private volatile static CsvAction instance;
 
     public static CsvAction getInstance() {
         if (instance == null) {
-            synchronized (RequestConstructer.class) {
+            synchronized (CsvAction.class) {
                 if (instance == null) {
                     instance = new CsvAction();
                 }
@@ -117,7 +118,18 @@ public class CsvAction {
         } else {
             SetCellValue(line, conclusionColumn, "失败");
         }
+    }
 
+    public void RecordLogicConclusion(int line, boolean b) {
+        try {
+            if (b == true) {
+                SetCellValue(line, logicConclusionColumn, "通过");
+            } else {
+                SetCellValue(line, logicConclusionColumn, "失败");
+            }
+        } catch (CsvMalformedLineException e) {
+            e.printStackTrace();
+        }
     }
 
 

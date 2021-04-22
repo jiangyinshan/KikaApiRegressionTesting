@@ -1,6 +1,8 @@
 package TestCase;
 
-import AssertImpl.CommanResponseCheck;
+import AssertImpl.CommanResponseCheckImpl;
+import AssertImpl.ParamExistCheckImpl;
+import AssertInterface.ParamExistCheck;
 import Util.GetParamsArray;
 import Util.LogUtil;
 import Util.RequestConstructer;
@@ -16,12 +18,12 @@ import java.io.IOException;
 /**
  * 预装单个theme详情页接口
  **/
-public class PreThemeDetailCase implements GetParamsArray {
+public class PreThemeDetailCase implements GetParamsArray, ParamExistCheck {
     public static Log log = LogFactory.getLog(PopupTagCase.class.getName());
     private String[] paramsArray;
     public int line;//参数在csv文件行数在csvList中的index
     private final String apiName = "预装单个theme详情页接口";
-
+    private final String[] responseParamArray={"preview","apk7z_url","previewCompress","icon","description","show_country","noadZipSize","download_url","id","vip","carousel_icon","key","pushIcon","author","pushBanner","priority","zip_url","url","pkg_name","start_num","show_version","size","name","raw_zip_url"};
 
     @Test
     public void TestCase() throws IOException {
@@ -29,7 +31,9 @@ public class PreThemeDetailCase implements GetParamsArray {
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);
         OkHttpClient okHttpClient = new OkHttpClient();
         Response response = okHttpClient.newCall(request).execute();
-        CommanResponseCheck.getInstance().CheckResponseFormat(line, response);
+        String responseStr = response.body().string();
+        CommanResponseCheckImpl.getInstance().CheckResponseFormat(line, response, responseStr);
+        Check(line,responseStr,responseParamArray);
     }
 
     @Override
@@ -45,5 +49,11 @@ public class PreThemeDetailCase implements GetParamsArray {
         if (this.paramsArray == null) {
             LogUtil.apiNotFound(this.apiName);
         }
+    }
+
+    @Override
+    public boolean Check(int line, String responseStr, String[] paramArray) {
+        ParamExistCheckImpl.getInstance().Check(line,responseStr,paramArray);
+        return false;
     }
 }
