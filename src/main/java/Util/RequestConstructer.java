@@ -38,9 +38,9 @@ public class RequestConstructer {
         return instance;
     }
 
-    /**
-     * 组装Post请求
-     **/
+    /**构造post方法的请求
+     * @param paramsArray 测试类的paramsArray，即从csv文件中读取的一行数据组成的字符串数组String []
+     * **/
     public Request ConstructPostRequest(String[] paramsArray) throws IOException {
         if (paramsArray.length < 1) {
             log.fatal("参数错误，请检查参数配置文件");
@@ -68,7 +68,9 @@ public class RequestConstructer {
         Request request = httpPost(SplitURL(paramsArray), headMap, paramMap);
         return request;
     }
-
+    /**构造get方法的请求
+     * @param paramsArray 测试类的paramsArray，即从csv文件中读取的一行数据组成的字符串数组String []
+     * **/
     public Request ConstructGetRequest(String[] paramsArray) {
         if (paramsArray.length < 1) {
             log.fatal("参数错误，请检查参数配置文件");
