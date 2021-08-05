@@ -9,9 +9,18 @@
   
   3）LogUtil类：日志打印的工具类
   
-  4）RequestConstructer类：根据csv文件中数据构造okhttp request对象（也就是请求）的工具类，为单例模式。构造Get请求的方法为ConstructGetRequest，构造Post请求的方法ConstructPostRequest
-  构造get请求时，会先检查字符串数组是否为空，然后调用CheckValidity方法检查请求头参数个数和请求头value个数是否匹配以及请求体参数个数和请求体value个数是否匹配
-  然后将读取paramsArray字符串数组中请求头参数/请求头value/请求体参数/请求体value并分别存入对应的字符串数组，然后分别遍历请求头参数字符串数组和请求体参数字符串数组，并将参数和value构造成请求头和请求体的HashMap，然后用请求头和请求体的HashMap以及接口url作为参数调用httpGet方法来构造okhttp的request对象并返回
+  4）RequestConstructer类：根据csv文件中数据构造okhttp request对象（也就是请求）的工具类，为单例模式。
+  
+  构造Get请求的方法为ConstructGetRequest，构造Post请求的方法ConstructPostRequest
+  构造get请求时，会先检查字符串数组是否为空，
+  
+  然后调用CheckValidity方法检查请求头参数个数和请求头value个数是否匹配以及请求体参数个数和请求体value个数是否匹配
+  
+  然后将读取paramsArray字符串数组中请求头参数/请求头value/请求体参数/请求体value并分别存入对应的字符串数组，
+  
+  然后分别遍历请求头参数字符串数组和请求体参数字符串数组，并将参数和value构造成请求头和请求体的HashMap，
+  
+  然后用请求头和请求体的HashMap以及接口url作为参数调用httpGet方法来构造okhttp的request对象并返回
   
   5)SignGenerater类：接口签名生成工具
   
