@@ -1,5 +1,6 @@
 # KikaApiRegressionTesting
 一、主要类介绍
+
 1.Util包
 
   1)CsvAction类：读写Csv文件的类，为单例模式
@@ -45,4 +46,17 @@
 
 1.TestCase类继承GetParamsArray并重写getCsvParamsArray方法和一个断言类（ResourceArrayCheck或ParamExistCheck）并重写Check方法
 
-2.先调用为
+2.先调用getCsvParams方法获取用例数据
+
+3.再调用RequestConstructer.getInstance().ConstructGetRequest(paramsArray)方法构造request对象
+
+4.然后执行request并获取response对象，最后执行CommanResponseCheckImpl.getInstance().CheckResponseFormat和Check检查接口是否可用以及业务是否可用,CheckResponseFormat方法会调用RecordContent方法，将响应码/errorMes/errorCode和响应中的data字段的值保存到csv中当前用例类对应的那一行
+
+
+
+
+
+
+
+
+
