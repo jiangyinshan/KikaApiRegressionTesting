@@ -20,9 +20,9 @@ import java.io.IOException;
  **/
 public class BrandedTabCase implements GetParamsArray, ResourceArrayCheck {
     public static Log log = LogFactory.getLog(PopupTagCase.class.getName());
-    private String[] paramsArray;
+    private String[] paramsArray;//存储从csv文件中读取的此用例对应的数据，存储为字符串数组
     public int line;//参数在csv文件行数在csvList中的index
-    private final String apiName = "branded tab页接口";
+    private final String apiName = "branded tab页接口";//当前测试类在csv文件中的名称，用于遍历csv文件时找到对应名称的那一行
 
 
     @Test

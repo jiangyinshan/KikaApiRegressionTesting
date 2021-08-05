@@ -12,7 +12,9 @@ import org.apache.commons.logging.LogFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * iFace项目接口自动化类
+ * **/
 public class ApiFactory {
     public static Log log = LogFactory.getLog(ApiFactory.class.getName());
     public String uploadImageUrl;

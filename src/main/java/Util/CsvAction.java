@@ -13,12 +13,12 @@ import java.util.List;
 
 public class CsvAction {
     final String CsvFilePath = "/Users/xm20190901/Downloads/接口自动化.csv";
-    final int responseCodeColumn = 9;
-    final int errorCodeColumn = 10;
-    final int errorMsgColumn = 11;
-    final int dataColumn = 12;
-    final int conclusionColumn = 13;
-    final int logicConclusionColumn = 14;
+    final int responseCodeColumn = 9;//响应码所在列数
+    final int errorCodeColumn = 10;//errorCode所在列数
+    final int errorMsgColumn = 11;//errorMsg所在列数
+    final int dataColumn = 12;//响应中data字段的内容的所在列数
+    final int conclusionColumn = 13;//接口是否可用的结果所在列数
+    final int logicConclusionColumn = 14;//业务是否可用的结果所在列数
     public static Log log = LogFactory.getLog(CsvAction.class.getName());
     private volatile static CsvAction instance;
 
