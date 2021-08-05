@@ -11,6 +11,8 @@ import com.alibaba.fastjson.JSONObject;
  * data字段内容为数组类型的接口业务验证
  **/
 public class ResourceArrayCheckImpl implements ResourceArrayCheck {
+    public final String updateList = "updateList";
+    public final String stickerList = "stickerList";
     public final String theme_list = "theme_list";
     public final String layout_list = "layout_list";
     public final String backgroundLlist = "backgroundList";
@@ -21,6 +23,13 @@ public class ResourceArrayCheckImpl implements ResourceArrayCheck {
     public final String resource_list = "resource_list";
     public final String sound_list = "sound_list";
     public final String emoticon_list = "list";
+    public final String launcher_list = "items";
+    public final String bigEmoji_list = "data";
+    public final String tinker_patch ="tinker_patch";
+    public final String data_list = "data";
+    public final String title_list = "titleList";
+    public final String coolFont_list = "list";
+    public final String thirdPartyAppsList = "apps";
     private volatile static ResourceArrayCheckImpl instance;
 
     public static ResourceArrayCheckImpl getInstance() {
@@ -39,15 +48,21 @@ public class ResourceArrayCheckImpl implements ResourceArrayCheck {
     public boolean Check(int line, String responseStr, String param) {
         JSONObject responseObject = JSON.parseObject(responseStr);
         JSONObject dataObject = JSONObject.parseObject(String.valueOf(responseObject));
-        JSONObject paramListObject = JSONObject.parseObject(dataObject.get("data").toString());
-        if (paramListObject.get(param) == null) {
+        //捕获parase data数据空指针异常，即无data字段时记录业务逻辑结果为失败
+        try {
+            JSONObject paramListObject = JSONObject.parseObject(dataObject.get("data").toString());
+            if (paramListObject.get(param) == null) {
+                CsvAction.getInstance().RecordLogicConclusion(line, false);
+            }
+            JSONArray paramArray = JSONArray.parseArray(paramListObject.get(param).toString());
+            if (paramArray == null || paramArray.size() < 1) {
+                CsvAction.getInstance().RecordLogicConclusion(line, false);
+            }
+            CsvAction.getInstance().RecordLogicConclusion(line, true);
+        } catch (NullPointerException e) {
             CsvAction.getInstance().RecordLogicConclusion(line, false);
+            return false;
         }
-        JSONArray paramArray = JSONArray.parseArray(paramListObject.get(param).toString());
-        if (paramArray == null || paramArray.size() < 1) {
-            CsvAction.getInstance().RecordLogicConclusion(line, false);
-        }
-        CsvAction.getInstance().RecordLogicConclusion(line, true);
         return true;
     }
 }

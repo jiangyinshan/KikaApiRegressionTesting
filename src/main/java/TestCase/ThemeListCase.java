@@ -25,7 +25,7 @@ public class ThemeListCase implements GetParamsArray, ResourceArrayCheck {
     private final String apiName = "theme列表接口";
 
 
-    @Test
+
     public void TestCase() throws IOException {
         getCsvParams(apiName, paramsArray);
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);

@@ -25,7 +25,7 @@ public class PreCategoryiesCase implements GetParamsArray, ResourceArrayCheck {
     private final String apiName = "预装分类资源接口";
 
 
-    @Test
+
     public void TestCase() throws IOException {
         getCsvParams(apiName, paramsArray);
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);

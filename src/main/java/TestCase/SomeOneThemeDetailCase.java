@@ -16,14 +16,14 @@ import org.junit.Test;
 import java.io.IOException;
 
 /**
- * sticker tab页sticker列表接口
+ * theme推荐接口
  **/
-public class StickerListCase implements GetParamsArray, ParamExistCheck {
+public class SomeOneThemeDetailCase implements GetParamsArray, ParamExistCheck {
     public static Log log = LogFactory.getLog(PopupTagCase.class.getName());
     private String[] paramsArray;
     public int line;//参数在csv文件行数在csvList中的index
-    private final String apiName = "sticker列表接口";
-    private  final String[] responseParamArray={"resource","pageSize","pageNum"};
+    private final String apiName = "某个theme详情页接口";
+    private final String[] responseParamArray = {"preview", "apk7z_url","previewCompress","icon","description","show_country","noadZipSize","download_url","id","vip","carousel_icon","key","apk_url","pushIcon","author","priority","zip_url","url","pkg_name","start_num","show_version","size","name","raw_zip_url"};
 
 
     public void TestCase() throws IOException {
@@ -53,7 +53,7 @@ public class StickerListCase implements GetParamsArray, ParamExistCheck {
 
     @Override
     public boolean Check(int line, String responseStr, String[] paramArray) {
-        ParamExistCheckImpl.getInstance().Check(line,responseStr,paramArray);
+        ParamExistCheckImpl.getInstance().Check(line, responseStr, paramArray);
         return false;
     }
 }

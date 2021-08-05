@@ -2,7 +2,9 @@ package TestCase;
 
 import AssertImpl.CommanResponseCheckImpl;
 import AssertImpl.ParamExistCheckImpl;
+import AssertImpl.ResourceArrayCheckImpl;
 import AssertInterface.ParamExistCheck;
+import AssertInterface.ResourceArrayCheck;
 import Util.GetParamsArray;
 import Util.LogUtil;
 import Util.RequestConstructer;
@@ -16,14 +18,14 @@ import org.junit.Test;
 import java.io.IOException;
 
 /**
- * sticker tab页sticker列表接口
+ * theme推荐接口
  **/
-public class StickerListCase implements GetParamsArray, ParamExistCheck {
+public class TinkerCase implements GetParamsArray, ParamExistCheck {
     public static Log log = LogFactory.getLog(PopupTagCase.class.getName());
     private String[] paramsArray;
     public int line;//参数在csv文件行数在csvList中的index
-    private final String apiName = "sticker列表接口";
-    private  final String[] responseParamArray={"resource","pageSize","pageNum"};
+    private final String apiName = "tinker_patch获取接口";
+    private final String[] responseParamArray = {"tinker_patch"};
 
 
     public void TestCase() throws IOException {
@@ -50,6 +52,7 @@ public class StickerListCase implements GetParamsArray, ParamExistCheck {
             LogUtil.apiNotFound(this.apiName);
         }
     }
+
 
     @Override
     public boolean Check(int line, String responseStr, String[] paramArray) {

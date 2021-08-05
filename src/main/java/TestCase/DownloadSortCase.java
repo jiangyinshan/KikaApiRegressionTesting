@@ -25,7 +25,7 @@ public class DownloadSortCase implements GetParamsArray, ResourceArrayCheck {
     private final String apiName = "导量列表分支接口";
 
 
-    @Test
+
     public void TestCase() throws IOException {
         getCsvParams(apiName, paramsArray);
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);

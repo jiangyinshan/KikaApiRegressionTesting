@@ -26,7 +26,7 @@ public class NotificationCase implements GetParamsArray, ParamExistCheck {
     private final String[] responseParamArray = {"trigCondition", "trigDelay", "msgType", "groupId", "startTime", "endTime", "trigConditionExtra", "preCondition", "content"};
 
 
-    @Test
+
     public void TestCase() throws IOException {
         getCsvParams(apiName, paramsArray);
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);

@@ -25,7 +25,7 @@ public class PreThemeDetailCase implements GetParamsArray, ParamExistCheck {
     private final String apiName = "预装单个theme详情页接口";
     private final String[] responseParamArray={"preview","apk7z_url","previewCompress","icon","description","show_country","noadZipSize","download_url","id","vip","carousel_icon","key","pushIcon","author","pushBanner","priority","zip_url","url","pkg_name","start_num","show_version","size","name","raw_zip_url"};
 
-    @Test
+
     public void TestCase() throws IOException {
         getCsvParams(apiName, paramsArray);
         Request request = RequestConstructer.getInstance().ConstructGetRequest(paramsArray);
